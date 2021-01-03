@@ -1,4 +1,5 @@
 var webPush = require('web-push');
+var vapidKeys = webPush.generateVAPIDKeys();
 var pushSub = {
                 "endpoint":"https://fcm.googleapis.com/fcm/send/cFDsD_8aLXc:APA91bEdOaJuK0xvGinlDh2jbtpBya8nrjbX10-hKjAp9NQqvopykoKEzJNWBByk1i5F2bJZ9Irm8mH5GMznUgtKl8CV9ClRtXS-48ZHqxKCrfujtkRa3h6hlO9YQFl_xBxHv9m9bRnN",
                 "expirationTime":null,
@@ -12,18 +13,21 @@ var convertedPrivateVapidKey = urlBase64ToUint8Array(vapidPrivateKey);
 webPush.setGCMAPIKey('1044754383724');
 webPush.setVapidDetails(
   'mailto:example@yourdomain.org',
-  vapidKeys.convertedPublicVapidKey,
-  vapidKeys.convertedPrivateVapidKey
+  //vapidKeys.convertedPublicVapidKey,
+  //vapidKeys.convertedPrivateVapidKey
+  vapidKeys.publicKey,
+  vapidKeys.privateKey
 );
 
 
 function urlBase64ToUint8Array(base64String) {
+    var atob = require('atob');
     var padding = '='.repeat((4 - base64String.length % 4) % 4);
     var base64 = (base64String + padding)
       .replace(/-/g, '+')
       .replace(/_/g, '/');
   
-    var rawData = window.atob(base64);
+    var rawData = atob(base64);
     var outputArray = new Uint8Array(rawData.length);
   
     for (let i = 0; i < rawData.length; ++i) {
@@ -32,5 +36,5 @@ function urlBase64ToUint8Array(base64String) {
     return outputArray;
   }
 
-  webPush.sendNotification(pushSubscription, 'Your Push Payload Text');
+  webPush.sendNotification(pushSub, 'Your Push Payload Text');
    
