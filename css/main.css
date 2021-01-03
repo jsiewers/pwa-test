@@ -1,0 +1,26 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    margin: 0px;
+    padding: 0px;
+}
+
+#addToHomeScreen {
+    display:none;
+    margin-top: 2 rem;
+}
+
+#addToHomeScreen img {
+    max-width: 57px;
+}
+
+#addToHomeScreen button {
+    border: 1px solid blue;
+}
+
+#instructions {
+    width: 100px;
+    height:100px;
+    background-color:red;
+    display:block;
+}
